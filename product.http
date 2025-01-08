@@ -1,0 +1,16 @@
+POST http://localhost:8088/product HTTP/1.1
+content-type: application/json
+
+{
+    "name": "novo produto",
+    "description": "este produto é de extrema qualidade",
+    "price": 90
+}
+
+####
+
+GET http://localhost:8088/product HTTP/1.1
+
+####
+
+GET http://localhost:8088/product/676f19546e9f9c1f0b52d45a HTTP/1.1
