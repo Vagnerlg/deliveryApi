@@ -4,7 +4,20 @@ content-type: application/json
 {
     "name": "novo produto",
     "description": "este produto é de extrema qualidade",
-    "price": 90
+    "price": 90,
+    "category": "lanche",
+    "tags": "queijo",
+    "pictures": ["https://www.google.com.br"],
+    "options": [
+        {
+            "kind": "otion",
+            "rules": {
+                "required": true,
+                "min": 1,
+                "max": 2
+            }
+        }
+    ]
 }
 
 ####
@@ -13,4 +26,28 @@ GET http://localhost:8088/product HTTP/1.1
 
 ####
 
-GET http://localhost:8088/product/676f19546e9f9c1f0b52d45a HTTP/1.1
+GET http://localhost:8088/product/67857c88956285c0182760a6 HTTP/1.1
+
+
+####
+
+PATCH http://localhost:8088/product/67857c88956285c0182760a6 HTTP/1.1
+content-type: application/json
+
+[
+    {
+        "op": "replace", 
+        "path": "/name", 
+        "value": "Jane"
+    },
+    {
+        "op": "add", 
+        "path": "/pictures", 
+        "value": ["https://www.google.com.br"]
+    },
+    {
+        "op": "add", 
+        "path": "/pictures/-", 
+        "value": "https://www.google.com.br"
+    }
+]

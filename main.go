@@ -19,6 +19,7 @@ func main() {
 		rProduct.POST("", http.Create)
 		rProduct.GET("", http.List)
 		rProduct.GET("/:id", http.Get)
+		rProduct.PATCH("/:id", http.Patch)
 	}
 
 	route.Run(":8088")

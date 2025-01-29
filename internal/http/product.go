@@ -1,6 +1,10 @@
 package httpApi
 
 import (
+	"encoding/json"
+	"io"
+
+	jsonpatch "github.com/evanphx/json-patch/v5"
 	"github.com/gin-gonic/gin"
 	"github.com/vagnerlg/deliveryApi/internal/entity"
 )
@@ -34,4 +38,21 @@ func (h *http) Get(ctx *gin.Context) {
 	prod := h.repo.Get(ctx.Param("id"))
 
 	ctx.JSON(200, gin.H{"data": prod})
+}
+
+func (h *http) Patch(ctx *gin.Context) {
+	body := ctx.Request.Body
+	data, _ := io.ReadAll(body)
+
+	prod := h.repo.Get(ctx.Param("id"))
+	original, _ := json.Marshal(prod)
+
+	pacth, _ := jsonpatch.DecodePatch(data)
+
+	newProd, _ := pacth.Apply(original)
+
+	prod2 := &entity.Product{}
+
+	json.Unmarshal(newProd, prod2)
+	ctx.JSON(200, gin.H{"data": prod2})
 }
