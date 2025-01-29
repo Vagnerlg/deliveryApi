@@ -54,5 +54,8 @@ func (h *http) Patch(ctx *gin.Context) {
 	prod2 := &entity.Product{}
 
 	json.Unmarshal(newProd, prod2)
+
+	h.repo.Update(prod2)
+
 	ctx.JSON(200, gin.H{"data": prod2})
 }

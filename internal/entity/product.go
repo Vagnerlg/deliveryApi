@@ -51,6 +51,7 @@ type Extra struct {
 
 type ProductRespository interface {
 	Create(*Product)
+	Update(*Product)
 	List() []Product
 	Get(string) Product
 }
