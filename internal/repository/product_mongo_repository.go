@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/vagnerlg/deliveryApi/internal/entity"
 	"go.mongodb.org/mongo-driver/bson"
@@ -27,12 +26,7 @@ func (r *repo) Update(product *entity.Product) {
 	idObject, _ := primitive.ObjectIDFromHex(product.ID.(string))
 	product.ID = idObject
 	filter := bson.M{"_id": idObject}
-	fmt.Println(product)
-	result, error := r.coll.ReplaceOne(context.TODO(), filter, product)
-	if error != nil {
-		fmt.Println(error)
-	}
-	fmt.Println(result)
+	r.coll.ReplaceOne(context.TODO(), filter, product)
 }
 
 func (r *repo) List() []entity.Product {
